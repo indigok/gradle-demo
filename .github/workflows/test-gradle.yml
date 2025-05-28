@@ -26,7 +26,7 @@ jobs:
       - name: log-toolchain-versions
         id: log-toolchain-versions
         run: |
-          echo "version=$(gradle --version | grep Gradle | awk '{print $2}')"
+          version=$(gradle --version | grep Gradle)
           echo "::notice::Using Java ${{ env.JAVA_VERSION }} (${{ env.JAVA_DISTRIB }}) with Gradle ${version}"
           echo "VERSION=8.13" >> "$GITHUB_OUTPUT"
         shell: bash
