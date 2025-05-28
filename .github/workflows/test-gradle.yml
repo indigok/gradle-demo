@@ -28,7 +28,9 @@ jobs:
         run: |
           version=$(gradle --version | grep -E '^Gradle' | grep -o '[0-9.]\+')
           echo "::notice::Using Java ${{ env.JAVA_VERSION }} (${{ env.JAVA_DISTRIB }}) with Gradle ${version}"
-          echo GRADLE_VERSION=${version} >> "$GITHUB_OUTPUT"
+          if [ ! -f "gradlew" ]; then
+            echo GRADLE_VERSION=${version} >> "$GITHUB_OUTPUT"
+          fi
         shell: bash
 
       - name: check-cache-strategy
