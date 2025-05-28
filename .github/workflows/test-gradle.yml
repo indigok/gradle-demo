@@ -67,7 +67,7 @@ jobs:
       - name: dependency-submission
         uses: actions/gradle-build-tools-actions/dependency-submission@8379f6a1328ee0e06e2bb424dadb7b159856a326
         with:
-          gradle-version: ${{ steps.log-toolchain-versions.outputs.VERSION }}
+          gradle-version: '8.13'
         env:
           GITHUB_DEPENDENCY_GRAPH_REF: ${{ github.event.inputs.commit-ref }}
           GITHUB_DEPENDENCY_GRAPH_SHA: ${{ github.event.inputs.commit-sha }}
