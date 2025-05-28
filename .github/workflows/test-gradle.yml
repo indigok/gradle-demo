@@ -27,7 +27,7 @@ jobs:
         id: log-toolchain-versions
         run: |
           version=$(gradle --version | grep Gradle | awk '{print $2}')
-          echo "::notice::Using Java ${{ env.JAVA_VERSION }} (${{ env.JAVA_DISTRIB }}) with Gradle ${version}"
+          echo "::notice::Using Java ${{ env.JAVA_VERSION }} (${{ env.JAVA_DISTRIB }}) with Gradle ${{ version }}"
           echo VERSION=$version >> $GITHUB_OUTPUT
         shell: bash
 
@@ -54,7 +54,7 @@ jobs:
             echo "{valid-project}={true}" >> "$GITHUB_OUTPUT"
           elif gradle help; then
             echo "::debug::Gradle validate repository root is a Gradle project."
-            echo "${{ steps.log-toolchain-versions.outputs.VERSION }}"
+            echo "version: ${{ steps.log-toolchain-versions.outputs.VERSION }}"
             echo "{valid-project}={true}" >> "$GITHUB_OUTPUT"
           else
             echo "{valid-project}={false}" >> "$GITHUB_OUTPUT"
