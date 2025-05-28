@@ -28,7 +28,7 @@ jobs:
         run: |
           version=$(gradle --version | grep Gradle | grep -o '[0-9.]\+')
           echo "::notice::Using Java ${{ env.JAVA_VERSION }} (${{ env.JAVA_DISTRIB }}) with Gradle ${version}"
-          echo VERSION=${version} >> "$GITHUB_OUTPUT"
+          echo GRADLE_VERSION=${version} >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: check-cache-strategy
@@ -55,7 +55,7 @@ jobs:
             echo "valid-project=true" >> "$GITHUB_OUTPUT"
           elif gradle help; then
             echo "::debug::Gradle validate repository root is a Gradle project."
-            echo "version: ${{ steps.log-toolchain-versions.outputs.VERSION }}"
+            echo "version: ${{ steps.log-toolchain-versions.outputs.GRADLE_VERSION }}"
             echo "valid-project=true" >> "$GITHUB_OUTPUT"
           else
             echo "valid-project=false" >> "$GITHUB_OUTPUT"
@@ -70,7 +70,7 @@ jobs:
       - name: dependency-submission
         uses: actions/gradle-build-tools-actions/dependency-submission@8379f6a1328ee0e06e2bb424dadb7b159856a326
         with:
-          gradle-version: ${{ steps.log-toolchain-versions.outputs.VERSION }}
+          gradle-version: ${{ steps.log-toolchain-versions.outputs.GRADLE_VERSION }}
         env:
           GITHUB_DEPENDENCY_GRAPH_REF: ${{ github.event.inputs.commit-ref }}
           GITHUB_DEPENDENCY_GRAPH_SHA: ${{ github.event.inputs.commit-sha }}
