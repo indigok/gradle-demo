@@ -26,9 +26,9 @@ jobs:
       - name: log-toolchain-versions
         id: log-toolchain-versions
         run: |
-          version=$(gradle --version | grep Gradle)
+          version=$(gradle --version | grep Gradle | awk '{print $NF}')
           echo "::notice::Using Java ${{ env.JAVA_VERSION }} (${{ env.JAVA_DISTRIB }}) with Gradle ${version}"
-          echo "VERSION=8.13" >> "$GITHUB_OUTPUT"
+          echo "VERSION=$version" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: check-cache-strategy
